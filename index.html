@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EUDS — Heart of Darkness: Californium Grade</title>
+  <meta name="description" content="EUDS archive: Heart of Darkness by Joseph Conrad, 1899. Anatomy of empire, complicity, and the horror of unbounded power. Free resources, message template, and Ethraeon constitutional AI.">
+  <meta property="og:title" content="EUDS — Heart of Darkness: Californium Grade">
+  <meta property="og:description" content="Joseph Conrad, 1899. A river into the interior of a continent — and of a man. Free read, Conrad timeline, and the Ethraeon connection.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta property="og:url" content="https://euds-hod.pages.dev">
+  <link rel="canonical" href="https://euds-hod.pages.dev">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    .font-serif  { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono   { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+
+    /* ── Gradients ── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6,78,59,0.45) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(8,51,68,0.3) 0%, transparent 60%),
+        #0f172a;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee 0%, #10b981 50%, #22d3ee 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradShift 5s ease infinite;
+    }
+
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── Glass ── */
+    .glass {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .glass-light {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* ── Glows ── */
+    .glow-cyan   { box-shadow: 0 0 24px rgba(34,211,238,0.18), 0 0 64px rgba(34,211,238,0.06); }
+    .glow-emerald{ box-shadow: 0 0 24px rgba(16,185,129,0.18), 0 0 64px rgba(16,185,129,0.06); }
+    .text-glow-cyan { text-shadow: 0 0 20px rgba(34,211,238,0.5); }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(34,211,238,0.35) 40%, rgba(16,185,129,0.35) 60%, transparent 100%);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0a1020; }
+    ::-webkit-scrollbar-thumb { background: #22d3ee55; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #22d3ee99; }
+
+    /* ── Timeline ── */
+    .tl-line {
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(34,211,238,0.6) 15%,
+        rgba(16,185,129,0.6) 50%,
+        rgba(34,211,238,0.6) 85%,
+        transparent 100%
+      );
+    }
+
+    .tl-card {
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    @media (hover: hover) {
+      .tl-card:hover { transform: translateX(3px); }
+    }
+
+    .tl-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    .tl-detail.open {
+      max-height: 1200px;
+      opacity: 1;
+    }
+
+    /* ── Dot pulse ── */
+    @keyframes ping {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* ── Fade-in on scroll ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Textarea ── */
+    .msg-area {
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      resize: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: #cbd5e1;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* ── Nav ── */
+    .nav-link {
+      position: relative;
+      color: #94a3b8;
+      transition: color 0.2s;
+      font-size: 0.8125rem;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #22d3ee;
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+    }
+    .nav-link:hover { color: #22d3ee; }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ── Buttons ── */
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(34,211,238,0.3);
+      background: rgba(34,211,238,0.07);
+      color: #22d3ee;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-copy:hover { background: rgba(34,211,238,0.15); border-color: rgba(34,211,238,0.5); }
+    .btn-copy:active { transform: scale(0.96); }
+    .btn-copy.success {
+      background: rgba(16,185,129,0.12);
+      border-color: rgba(16,185,129,0.4);
+      color: #10b981;
+    }
+
+    /* ── Resource link ── */
+    .res-link {
+      display: block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .res-link:hover { background: rgba(34,211,238,0.04); }
+
+    /* ── Stat cards ── */
+    @keyframes countUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .stat-card { animation: countUp 0.6s ease both; }
+
+    /* ── Ethreon feature card ── */
+    .feat-card {
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .feat-card:hover { transform: translateY(-3px); }
+
+    /* ── Floating nav indicator ── */
+    .section-active { color: #22d3ee !important; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    #mobile-menu.open { max-height: 320px; opacity: 1; }
+
+    /* ── Pulse keyframe ── */
+    @keyframes pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
+
+    /* ── Timeline card focus ── */
+    .tl-card:focus-visible {
+      outline: 2px solid rgba(34,211,238,0.6);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+
+<!-- ═══════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════ -->
+<nav class="fixed top-0 inset-x-0 z-50 glass border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-3.5 flex items-center justify-between">
+    <a href="#hero" class="font-mono text-xs tracking-widest text-cyan-400 text-glow-cyan">
+      EUDS&nbsp;·&nbsp;HOD&nbsp;·&nbsp;CF⁻¹
+    </a>
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#hero"     class="nav-link">Origin</a>
+      <a href="#timeline" class="nav-link">Timeline</a>
+      <a href="#ethraeon" class="nav-link">Ethraeon</a>
+      <a href="#extras"   class="nav-link">Extras</a>
+    </div>
+    <!-- Mobile hamburger -->
+    <button id="hamburger-btn" class="md:hidden text-slate-400 hover:text-cyan-400 transition-colors" onclick="toggleMobileMenu()" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+      <svg id="menu-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden px-5 pb-3">
+    <div class="flex flex-col gap-1 pt-2 border-t border-white/5">
+      <a href="#hero"     class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Origin</a>
+      <a href="#timeline" class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Timeline</a>
+      <a href="#ethraeon" class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Ethraeon</a>
+      <a href="#extras"   class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Extras</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 — HERO
+═══════════════════════════════════════════ -->
+<section id="hero" class="hero-bg relative min-h-screen flex flex-col items-center justify-center pt-16 pb-20 overflow-hidden">
+
+  <!-- Ambient orbs -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div style="position:absolute;width:560px;height:560px;top:10%;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(6,78,59,0.25) 0%,transparent 70%);animation:pulse 7s ease-in-out infinite;"></div>
+    <div style="position:absolute;width:300px;height:300px;bottom:15%;right:10%;background:radial-gradient(circle,rgba(8,51,68,0.2) 0%,transparent 70%);animation:pulse 9s ease-in-out infinite 3s;"></div>
+  </div>
+  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+
+    <!-- Badge -->
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:2.5rem;padding:6px 18px;border-radius:9999px;border:1px solid rgba(34,211,238,0.2);background:rgba(34,211,238,0.05);">
+      <span style="width:7px;height:7px;border-radius:50%;background:#22d3ee;animation:pulse 2s ease-in-out infinite;display:inline-block;"></span>
+      <span class="font-mono text-cyan-400" style="font-size:0.7rem;letter-spacing:0.15em;">EUDS DOCUMENT ARCHIVE — OPEN ACCESS</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-serif font-black leading-none mb-4" style="font-size:clamp(3rem,10vw,7rem);">
+      <span class="gradient-text">Heart of</span><br>
+      <span class="text-slate-100">Darkness</span>
+    </h1>
+
+    <div class="font-mono text-cyan-400 tracking-widest mb-5" style="font-size:clamp(0.8rem,2vw,1.1rem);letter-spacing:0.25em;">
+      CALIFORNIUM&nbsp;&nbsp;GRADE
+    </div>
+
+    <div class="divider mx-auto mb-8" style="max-width:200px;"></div>
+
+    <p class="text-slate-300 max-w-2xl mx-auto leading-relaxed mb-4" style="font-size:clamp(0.95rem,2vw,1.1rem);">
+      Joseph Conrad, 1899. A river into the interior of a continent — and of a man.
+      The anatomy of empire, complicity, and the horror of unbounded power.
+    </p>
+
+    <p class="text-slate-500 max-w-xl mx-auto mb-14 text-sm leading-relaxed">
+      <em>"The horror! The horror!"</em> — Kurtz's dying words, echoing across 125 years into
+      every space where authority operates without witnesses.
+    </p>
+
+    <!-- Stat grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+      <div class="glass rounded-xl p-4 stat-card" style="animation-delay:0.1s">
+        <div class="text-cyan-400 font-mono font-bold" style="font-size:1.6rem;">1899</div>
+        <div class="text-slate-500 text-xs mt-1">Serialized in<br>Blackwood's Magazine</div>
+      </div>
+      <div class="glass rounded-xl p-4 stat-card" style="animation-delay:0.2s">
+        <div class="text-emerald-400 font-mono font-bold" style="font-size:1.6rem;">~38K</div>
+        <div class="text-slate-500 text-xs mt-1">Words. Three parts.<br>One nightmare.</div>
+      </div>
+      <div class="glass rounded-xl p-4 stat-card" style="animation-delay:0.3s">
+        <div class="text-cyan-400 font-mono font-bold" style="font-size:1.6rem;">1979</div>
+        <div class="text-slate-500 text-xs mt-1">Apocalypse Now —<br>Coppola's echo</div>
+      </div>
+      <div class="glass rounded-xl p-4 stat-card" style="animation-delay:0.4s">
+        <div class="text-emerald-400 font-mono font-bold" style="font-size:1.6rem;">125+</div>
+        <div class="text-slate-500 text-xs mt-1">Years forcing<br>us to look</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600">
+    <span class="font-mono text-xs tracking-widest">SCROLL</span>
+    <div style="width:1px;height:32px;background:linear-gradient(to bottom,#475569,transparent);animation:pulse 2s ease-in-out infinite;"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 — TIMELINE
+═══════════════════════════════════════════ -->
+<section id="timeline" class="py-24 px-6" style="background:linear-gradient(180deg,#0a1628 0%,#0b1a22 100%);">
+  <div class="max-w-4xl mx-auto">
+
+    <div class="text-center mb-16 fade-in">
+      <div class="font-mono text-emerald-500 text-xs tracking-widest mb-3">CHRONOLOGY // 1857–1924</div>
+      <h2 class="font-serif font-bold text-slate-100 mb-3" style="font-size:clamp(1.6rem,4vw,2.4rem);">Conrad's Arc</h2>
+      <p class="text-slate-500 text-sm max-w-md mx-auto">From Polish exile to the English language's most haunting voice. Tap any card to expand.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative pl-8 md:pl-10">
+      <!-- Vertical line -->
+      <div class="tl-line absolute left-[9px] md:left-4 top-0 bottom-0" style="width:1px;"></div>
+
+      <div id="timeline-container" class="space-y-5">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     DIVIDER
+═══════════════════════════════════════════ -->
+<div class="py-8 px-6"><div class="divider max-w-lg mx-auto"></div></div>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 — ETHRAEON
+═══════════════════════════════════════════ -->
+<section id="ethraeon" class="py-24 px-6" style="background:linear-gradient(180deg,#0b1a22 0%,#0f172a 100%);">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-16 fade-in">
+      <div class="font-mono text-cyan-500 text-xs tracking-widest mb-3">ETHRAEON // SOVEREIGN AI</div>
+      <h2 class="font-serif font-bold text-slate-100 mb-4" style="font-size:clamp(1.6rem,4vw,2.4rem);">What Ethraeon Actually Does</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
+        If Kurtz represents AI without constraints — brilliant, resourced, purposeful, and catastrophic —
+        Ethraeon is the constitutional architecture that ensures <em>"the horror"</em> never becomes a product feature.
+      </p>
+    </div>
+
+    <!-- Feature grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(34,211,238,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(34,211,238,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#22d3ee;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">12-Clause Constitution</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">Hard-coded ethical constraints that cannot be overridden at runtime. Not guidelines — constitutional law for every inference the system makes.</p>
+      </div>
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(16,185,129,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(16,185,129,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">Runtime Ethics Enforcement</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">Ethics enforced at execution, not training time. Every inference passes through constitutional gates before any output is produced.</p>
+      </div>
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(34,211,238,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(34,211,238,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#22d3ee;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">SHA256 → IPFS Integrity</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">Every decision hash-chained and stored on IPFS. Tamper-evident, permanent audit trail. Verify what was decided and why — independently.</p>
+      </div>
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(16,185,129,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(16,185,129,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">73+ Patents · 16+ Utility Filed</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">Full IP portfolio covering constitutional enforcement mechanisms. Novel architecture — not prompting tricks. Actual systems engineering.</p>
+      </div>
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(34,211,238,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(34,211,238,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#22d3ee;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">Zero AI Autonomy</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">AI as instrument, never agent. No self-directed action without explicit human authorization at each step. The model doesn't decide — the human does.</p>
+      </div>
+
+      <div class="feat-card glass rounded-2xl p-6 fade-in" style="border:1px solid rgba(16,185,129,0.12);">
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(16,185,129,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg class="w-5 h-5" style="color:#10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-slate-100 font-semibold mb-2 text-sm">Sovereign Architecture</h3>
+        <p class="text-slate-500 text-xs leading-relaxed">Not dependent on any single cloud provider or model vendor. The constitutional layer sits above and around the model — not inside it. Portable. Auditable. Permanent.</p>
+      </div>
+
+    </div>
+
+    <!-- Kurtz Problem panel -->
+    <div class="glass rounded-2xl p-8 fade-in glow-cyan" style="border:1px solid rgba(34,211,238,0.2);">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div>
+          <div class="font-mono text-cyan-400 text-xs tracking-widest mb-3">THE KURTZ PROBLEM</div>
+          <h3 class="font-serif text-slate-100 mb-4" style="font-size:1.4rem;">What Conrad Saw Coming</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Kurtz was brilliant. Kurtz had resources, mandate, and intent to do good.
+            Kurtz operated without witnesses, without accountability, without constitutional limits.
+            The company sent Marlow to find out what happened.
+          </p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Ethraeon is the architecture that means you never need to send Marlow.
+            The audit trail is already there. The constraints are already running.
+            The horror is already foreclosed.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <div style="width:24px;height:24px;border-radius:50%;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <span style="color:#ef4444;font-size:0.7rem;">✕</span>
+            </div>
+            <div>
+              <div class="text-slate-300 text-sm font-medium">Kurtz — Unconstrained AI</div>
+              <div class="text-slate-600 text-xs mt-0.5 leading-relaxed">Brilliant, resourced, purposeful. And catastrophic without limits. The company never built a constitution.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div style="width:24px;height:24px;border-radius:50%;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <span style="color:#10b981;font-size:0.7rem;">✓</span>
+            </div>
+            <div>
+              <div class="text-slate-300 text-sm font-medium">Ethraeon — Constitutional AI</div>
+              <div class="text-slate-600 text-xs mt-0.5 leading-relaxed">12 clauses. Runtime enforcement. Hash-chained. Verifiable. Auditable. Human-sovereign at every step.</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div style="width:24px;height:24px;border-radius:50%;background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <span style="color:#22d3ee;font-size:0.7rem;">→</span>
+            </div>
+            <div>
+              <div class="text-slate-300 text-sm font-medium">The difference is structure</div>
+              <div class="text-slate-600 text-xs mt-0.5 leading-relaxed">Good intentions never replaced good architecture. Conrad saw this in 1899. Ethraeon builds it now.</div>
+            </div>
+          </div>
+          <div class="pt-3 border-t" style="border-color:rgba(255,255,255,0.05);">
+            <a href="https://ethraeon.ai" target="_blank" rel="noopener noreferrer"
+               class="font-mono text-cyan-400 text-xs tracking-wider hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5">
+              ethraeon.ai
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     DIVIDER
+═══════════════════════════════════════════ -->
+<div class="py-8 px-6"><div class="divider max-w-lg mx-auto"></div></div>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5 — EXTRAS
+═══════════════════════════════════════════ -->
+<section id="extras" class="py-24 px-6" style="background:linear-gradient(180deg,#0f172a 0%,#080e1a 100%);">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-16 fade-in">
+      <div class="font-mono text-emerald-500 text-xs tracking-widest mb-3">ARCHIVE // SUPPLEMENTARY MATERIALS</div>
+      <h2 class="font-serif font-bold text-slate-100 mb-3" style="font-size:clamp(1.6rem,4vw,2.4rem);">Extras</h2>
+      <p class="text-slate-500 text-sm">Primary sources. Free. Legal. Permanent.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <!-- Primary text + audiobooks -->
+      <div class="fade-in">
+        <div class="font-mono text-cyan-400 text-xs tracking-widest mb-4 flex items-center gap-2">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332-.477-4.5-1.253"/>
+          </svg>
+          TEXT &amp; AUDIO
+        </div>
+        <div class="space-y-3">
+          <a href="https://www.gutenberg.org/files/219/219-h/219-h.htm" target="_blank" rel="noopener noreferrer"
+             class="res-link glass rounded-xl p-4 fade-in" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-slate-200 text-sm font-medium mb-0.5">Heart of Darkness — Project Gutenberg</div>
+                <div class="text-slate-600 text-xs">Full HTML edition. The exact URL in the message template. Public domain.</div>
+              </div>
+              <svg class="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+          <a href="https://librivox.org" target="_blank" rel="noopener noreferrer"
+             class="res-link glass rounded-xl p-4 fade-in" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-slate-200 text-sm font-medium mb-0.5">LibriVox — Free Audiobooks</div>
+                <div class="text-slate-600 text-xs">Search "Heart of Darkness" at librivox.org — multiple volunteer recordings, public domain.</div>
+              </div>
+              <svg class="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+          <a href="https://archive.org" target="_blank" rel="noopener noreferrer"
+             class="res-link glass rounded-xl p-4 fade-in" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-slate-200 text-sm font-medium mb-0.5">Internet Archive — Full Collection</div>
+                <div class="text-slate-600 text-xs">Search archive.org for Conrad audiobooks, essays, and historical recordings. Free, permanent.</div>
+              </div>
+              <svg class="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Documentary links -->
+      <div class="fade-in">
+        <div class="font-mono text-emerald-400 text-xs tracking-widest mb-4 flex items-center gap-2">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.845v6.31a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          FILM &amp; DOCUMENTARY
+        </div>
+        <div class="space-y-3">
+          <a href="https://archive.org/details/apocalypse-now-wtaf-tv-29-woc-1987-11" target="_blank" rel="noopener noreferrer"
+             class="res-link glass rounded-xl p-4 fade-in" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-slate-200 text-sm font-medium mb-0.5">Apocalypse Now — Archive.org</div>
+                <div class="text-slate-600 text-xs">Ad-free. 1987 broadcast rip. Coppola's Conrad adaptation. Willard is Marlow. Kurtz is Kurtz.</div>
+              </div>
+              <svg class="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=ITUj5zYcN1U" target="_blank" rel="noopener noreferrer"
+             class="res-link glass rounded-xl p-4 fade-in" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-slate-200 text-sm font-medium mb-0.5">Bronowski at Auschwitz — YouTube</div>
+                <div class="text-slate-600 text-xs">Ascent of Man, S1E11. Bronowski kneels at the ash pond. "We have to touch people." 1974. Three minutes that explain everything.</div>
+              </div>
+              <svg class="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Alt templates -->
+      <div class="lg:col-span-2 fade-in">
+        <div class="font-mono text-cyan-400 text-xs tracking-widest mb-4 flex items-center gap-2">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+          </svg>
+          ALTERNATE MESSAGE TEMPLATES
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- Brief -->
+          <div class="glass rounded-xl p-5" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="font-mono text-cyan-400 text-xs mb-3">// BRIEF VERSION</div>
+            <div class="bg-slate-950/60 rounded-lg p-3 mb-3" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;line-height:1.8;color:#94a3b8;" id="briefText">
+T.T. — Conrad's Heart of Darkness is free: gutenberg.org/files/219/219-h/219-h.htm — and Bronowski's Auschwitz moment (YouTube: ITUj5zYcN1U) is the 3 minutes that explains why Ethraeon exists. "We have to touch people." — jason
+            </div>
+            <button class="btn-copy" id="copyBriefBtn" onclick="copyAlt('brief')" aria-label="Copy brief version">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              <span id="copyBriefLabel">COPY BRIEF</span>
+            </button>
+          </div>
+
+          <!-- Formal -->
+          <div class="glass rounded-xl p-5" style="border:1px solid rgba(255,255,255,0.05);">
+            <div class="font-mono text-emerald-400 text-xs mb-3">// FORMAL VERSION</div>
+            <div class="bg-slate-950/60 rounded-lg p-3 mb-3" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;line-height:1.8;color:#94a3b8;" id="formalText">
+Dear T.T., I wanted to share three resources that speak to story, accountability, and technology: Conrad's Heart of Darkness (Gutenberg), Bronowski's Ascent of Man finale, and Ethraeon's constitutional AI overview. The throughline is Bronowski's thesis: proximity creates moral responsibility. Best, Jason
+            </div>
+            <button class="btn-copy" id="copyFormalBtn" onclick="copyAlt('formal')" aria-label="Copy formal version">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              <span id="copyFormalLabel">COPY FORMAL</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer style="background:#070d18;border-top:1px solid rgba(255,255,255,0.05);" class="py-16 px-6">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+      <div>
+        <div class="font-mono text-cyan-400 text-xs tracking-widest mb-4">EUDS</div>
+        <p class="text-slate-600 text-xs leading-relaxed">Ethical Understanding &amp; Design Systems. Documents that matter, preserved for transmission. Open access. No paywall.</p>
+      </div>
+      <div>
+        <div class="font-mono text-emerald-400 text-xs tracking-widest mb-4">ETHRAEON</div>
+        <p class="text-slate-600 text-xs leading-relaxed mb-3">Sovereign constitutional AI. Runtime ethics enforcement. Human sovereignty over every decision. Not a chatbot — an architecture.</p>
+        <a href="https://ethraeon.ai" target="_blank" rel="noopener noreferrer"
+           class="font-mono text-cyan-400 text-xs tracking-wider hover:text-cyan-300 transition-colors inline-flex items-center gap-1">
+          ethraeon.ai
+          <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+        </a>
+      </div>
+      <div>
+        <div class="font-mono text-cyan-400 text-xs tracking-widest mb-4">JASON (AC-1)</div>
+        <p class="text-slate-600 text-xs leading-relaxed mb-3">"orbit" 🔐✅🔄⚛️☝️👉</p>
+        <p class="text-slate-700 text-xs italic">"We have to touch people."<br>— Bronowski, 1974.</p>
+      </div>
+    </div>
+
+    <!-- Final quote -->
+    <div class="text-center pt-10 border-t" style="border-color:rgba(255,255,255,0.05);">
+      <blockquote class="font-serif italic text-slate-500 mb-3" style="font-size:clamp(1.1rem,3vw,1.6rem);">
+        "The horror! The horror!"
+      </blockquote>
+      <p class="font-mono text-slate-700 text-xs">— Kurtz, <em>Heart of Darkness</em>, Joseph Conrad, 1899</p>
+
+      <div class="divider mx-auto my-8" style="max-width:300px;"></div>
+
+      <p class="font-mono text-slate-800 text-xs tracking-wider">
+        EUDS · HOD · CALIFORNIUM GRADE · 2026 · SHA256 INTEGRITY ENFORCED
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+/* ── Timeline Data ── */
+const EVENTS = [
+  {
+    year: "1857", tag: "Dec 3",
+    title: "Born in Berdychiv",
+    summary: "Józef Teodor Konrad Korzeniowski born in Berdychiv, Ukraine — then under Russian imperial rule. Polish noble family. He will write in a language not yet born to him.",
+    detail: "His father Apollo Korzeniowski was a poet, playwright, and Polish patriot who translated Shakespeare and Hugo into Polish. The family's subjugation under Russian autocracy would shape Conrad's lifelong preoccupation with empire, identity, and the fate of the powerless under the powerful. Poland did not exist as a state — it had been partitioned. Conrad was born into occupied absence.",
+    cy: true
+  },
+  {
+    year: "1861", tag: null,
+    title: "Father Arrested",
+    summary: "Apollo Korzeniowski arrested by Russian authorities for organizing Polish nationalist resistance. Conrad is four.",
+    detail: "Apollo was founding member of a secret committee working for Polish independence. The Russians sentenced him to exile in Vologda, Russia — dragging his wife Ewa and four-year-old Conrad into the frozen north. Conrad later wrote he felt 'the shadow of autocracy' before he could understand the word. This was his first lesson in what happens when power operates without witnesses.",
+    cy: false
+  },
+  {
+    year: "1862", tag: null,
+    title: "Exile in Russia",
+    summary: "Family exiled to Vologda, deep northern Russia. Conrad and his mother contract serious illness in the brutal climate.",
+    detail: "Vologda in winter was an act of slow violence. Both Ewa and young Conrad fell gravely ill. Russian authorities later allowed a move to Chernihiv in Ukraine, marginally less harsh. The years of exile — of being nowhere fully at home — permeate Conrad's fiction as a kind of metaphysical homelessness. No protagonist in Conrad belongs where they are.",
+    cy: true
+  },
+  {
+    year: "1865", tag: null,
+    title: "Mother Dies",
+    summary: "Ewa Korzeniowska dies of tuberculosis contracted in exile. Conrad is seven. Father writes: 'My little son is an orphan.'",
+    detail: "Apollo wrote after her death: 'I am a widow and my little son is an orphan.' He dedicated the rest of his shortened life to Polish literature and raising Conrad, whom he described as 'a little child of great charm.' The loss marked Conrad permanently — motherlessness, abandonment, and unearned suffering appear in multiple registers across his fiction. He kept her photograph on his desk his whole life.",
+    cy: false
+  },
+  {
+    year: "1869", tag: null,
+    title: "Father Dies. Fully Orphaned.",
+    summary: "Apollo Korzeniowski dies in Kraków of tuberculosis. Conrad, 11, is truly orphaned. Thousands line the streets for Apollo's funeral as a quiet act of Polish national protest.",
+    detail: "Apollo's funeral became a covert protest — crowds following the coffin of a man martyred by Russian repression. Conrad was there, walking behind. His uncle Tadeusz Bobrowski became guardian. Conrad would carry Polish and the memory of his parents' sacrifice his entire life — even as he became the supreme master of English prose. The guilt of the survivor who left would never fully leave him.",
+    cy: true
+  },
+  {
+    year: "1874", tag: null,
+    title: "Leaves Poland Forever",
+    summary: "Age 16, Conrad leaves Kraków for Marseille, France. He will never live in Poland again. His uncle funds it, reluctantly.",
+    detail: "Tadeusz Bobrowski opposed the plan — he wanted Conrad to study in Switzerland, become something stable. Conrad felt an 'irresistible' call to the sea that his uncle suspected was really a call away from grief and occupied territory. He arrived in Marseille with almost no French and no maritime experience, and found his way to the docks by instinct. He was never going back.",
+    cy: false
+  },
+  {
+    year: "1876", tag: "–77",
+    title: "Caribbean Adventures",
+    summary: "Caribbean voyages on French ships. Possible involvement in gun-running for the Carlist cause in Spain. Conrad is 18–19.",
+    detail: "Conrad later fictionalised these years in 'The Arrow of Gold.' Historians debate how much of what he claimed actually happened — Conrad was a mythologizer of his own life. What's clear: young Conrad was running cargo in the Caribbean and possibly contraband, learning that authority rarely matched its claims, that men with power over others were rarely what they seemed. His political education continued at sea.",
+    cy: true
+  },
+  {
+    year: "1878", tag: null,
+    title: "Shot. Survived. England.",
+    summary: "After financial collapse and a possible failed love affair, Conrad shoots himself in the chest. Survives. His uncle pays his debts. Conrad joins the British Merchant Navy and arrives in England for the first time.",
+    detail: "Conrad claimed it was a duel. His uncle — who received the news in a letter from the consul — believed it was a suicide attempt. Whatever happened, he recovered in Marseille, his uncle cleared the debts, and Conrad transferred to British ships, barred from French vessels for evading French military service. His first English-speaking crew. He was 20. He spoke almost no English. He would become the greatest English prose stylist of his generation.",
+    cy: false
+  },
+  {
+    year: "1886", tag: null,
+    title: "British Citizen. Master Mariner.",
+    summary: "Becomes a British citizen. Earns his master mariner certificate — the highest qualification in merchant seamanship. Both in the same year, age 28.",
+    detail: "For a stateless Pole who'd grown up under Russian autocracy, British citizenship was a deliberate act of allegiance to a particular idea of civil society — rule of law, individual liberty, constitutional governance. The master's certificate meant he could command any British merchant vessel on any ocean. He had built himself from nothing. He had made himself. And soon, he would unmake himself by writing.",
+    cy: true
+  },
+  {
+    year: "1888", tag: null,
+    title: "Commands the Otago",
+    summary: "Commands the barque Otago, his first and only command, out of Bangkok. Inherits a depleted, sick crew. The previous captain died at sea under murky circumstances.",
+    detail: "Conrad nursed a cholera-ravaged crew through to Australia, making decisions alone, without precedent, without counsel. The experience gave him 'The Shadow-Line' (1917), his most directly autobiographical sea novel — about a young captain's first encounter with command's true weight. The moment you realize the ship is yours and yours alone. No more authority above you. Just the sea, the crew, and your choices.",
+    cy: false
+  },
+  {
+    year: "1890", tag: null,
+    title: "The Congo. The Darkness.",
+    summary: "Voyages up the Congo River for the Société Anonyme Belge pour le Commerce du Haut-Congo. Witnesses the machinery of Belgian imperial atrocity. Contracts malaria and dysentery. Returns broken.",
+    detail: "King Leopold II's Congo Free State was one of history's most brutal colonial enterprises — enslaved populations forced to harvest rubber under threat of severed hands, documented by missionaries and reformers. Conrad witnessed this system from inside. He was 32. He met a real figure for Kurtz — Georges-Antoine Klein, a company agent dying on the return voyage down-river. He came back in wrecked health, and carrying something he would spend nine years processing into the most important English novella of the twentieth century.",
+    cy: true
+  },
+  {
+    year: "1895", tag: null,
+    title: "First Novel Published",
+    summary: "'Almayer's Folly' published under the pen name 'Joseph Conrad.' A 20-year seafarer becomes a novelist at 37. Written across a decade, rejected several times.",
+    detail: "Edward Garnett at T. Fisher Unwin recognised its worth when others didn't. Conrad wrote English as a third language — Polish first, French second. He would become one of the greatest English prose stylists in history. Garnett's wife Constance — the famous Dostoevsky translator — became a lifelong friend. Ford Madox Ford became his collaborator. Conrad had found, very late, what he was for.",
+    cy: false
+  },
+  {
+    year: "1897", tag: null,
+    title: "The Nigger of the 'Narcissus'",
+    summary: "Conrad publishes his first major sea novel — the story of a West Indian sailor dying aboard a merchant vessel, and the crew's moral reckoning. His preface becomes a manifesto of literary art.",
+    detail: "The preface to 'The Nigger of the Narcissus' is one of literature's great statements of artistic purpose: 'My task which I am trying to achieve is, by the power of the written word to make you hear, to make you feel — it is, before all, to make you see.' The novel itself is about solidarity, race, fear of death, and how a ship's crew — a society in miniature — responds to the presence of a dying man.",
+    cy: true
+  },
+  {
+    year: "1899", tag: "Feb–Apr",
+    title: "Heart of Darkness Serialized",
+    summary: "'Heart of Darkness' appears in Blackwood's Magazine across three issues. A sensation. Conrad was 41. He wrote it in approximately six weeks.",
+    detail: "Written in a compressed fever — in part dictated to his wife Jessie as he paced the room. The story almost wrote itself: nine years of compressed guilt, moral horror, and narrative ambition discharged in one novella. Marlow's voice, the fog on the river, the heads on the stakes, Kurtz's report with its scrawled postscript: 'Exterminate all the brutes!' T.S. Eliot placed the epigraph to 'The Hollow Men' from Heart of Darkness. Chinua Achebe would later call it racist. Both responses are serious and both are incomplete.",
+    cy: false
+  },
+  {
+    year: "1902", tag: null,
+    title: "Youth Volume — Book Form",
+    summary: "'Youth: A Narrative, and Two Other Stories' published. Heart of Darkness appears in book form for the first time alongside 'Youth' and 'The End of the Tether.' All three narrated by Marlow.",
+    detail: "The grouping made Marlow central to Conrad's project — a narrator who frames, who witnesses, who cannot fully contain what he has seen. Henry James praised the volume. Roger Casement — who would himself be executed for exposing Belgian Congo atrocities, and who had been Conrad's acquaintance in the Congo in 1890 — was moved by the novella. Two men who had seen the same horror, finding different ways to respond to it.",
+    cy: true
+  },
+  {
+    year: "1904", tag: null,
+    title: "Nostromo",
+    summary: "'Nostromo: A Tale of the Seaboard' published — many consider it Conrad's supreme achievement. A vast novel of Latin American politics, a silver mine, and the corruption of idealism at scale.",
+    detail: "Conrad wrote it in anguish, nearly destroying his health. Set in the fictional Costaguana, it covers a silver mining company's role in a revolution. The silver — like Kurtz's ivory — becomes a symbol of how material interest devours human values, even the sincere ones. F.R. Leavis placed Nostromo at the centre of the great tradition of the English novel. It remains the most ambitious thing Conrad attempted.",
+    cy: false
+  },
+  {
+    year: "1907", tag: null,
+    title: "The Secret Agent",
+    summary: "Anarchist terrorism, police informers, and a bombing in London. Conrad's darkest ironic novel — based on the 1894 Greenwich Observatory bombing.",
+    detail: "A double agent is sent to blow up the Observatory to provoke a British crackdown on anarchists — and he takes his intellectually disabled brother-in-law with him. The bombing goes wrong. Conrad wrote it with what he called 'no joy' — only a cold fury at how ideology uses the innocent as instruments. Every character believes they are serving something larger than themselves. Every character is wrong.",
+    cy: true
+  },
+  {
+    year: "1911", tag: null,
+    title: "Under Western Eyes",
+    summary: "Russia, revolution, and betrayal. Conrad's most directly political novel — and the most personally painful to write. He collapsed after finishing it.",
+    detail: "A Russian student betrays a fellow revolutionary to the tsarist secret police, then must live with it. Conrad wrote it during extreme psychological stress — the subject of Russian autocracy, Polish suffering, and complicity was too close to his blood. He finished the draft and then collapsed, was delirious for weeks. His wife feared for his sanity. The novel is about guilt that has no exit — which is what Conrad knew guilt actually was.",
+    cy: false
+  },
+  {
+    year: "1913", tag: null,
+    title: "Chance — First Bestseller",
+    summary: "'Chance' becomes Conrad's first commercial success at age 55. After 18 years of critical acclaim and relentless financial struggle. Serialized in the New York Herald.",
+    detail: "Conrad was finally solvent. He had spent his entire career in debt, supported by advances and loans from his agent J.B. Pinker. The irony was characteristic: 'Chance' is considered one of his lesser works. The public arrived just as the greatest ambition was slightly behind him. But he didn't need to be great anymore — he needed to stop being broke. He bought a car. He hired a housekeeper. He exhaled.",
+    cy: true
+  },
+  {
+    year: "1923", tag: null,
+    title: "American Triumph",
+    summary: "First visit to the United States. Acclaimed everywhere. Declines a knighthood from the British government. He is 65 and exhausted, but moved.",
+    detail: "He declined the knighthood with characteristic paradox — he had not sought honours, had not performed loyalty. His American reception was rapturous: publishers, critics, readers who had made him part of their interior lives. He gave readings despite his poor health. Returning to England, he was visibly failing. He knew it. He spent the final year in Bishopsbourne, Kent, writing letters and receiving visitors, still trying to finish 'Suspense.'",
+    cy: false
+  },
+  {
+    year: "1924", tag: "Aug 3",
+    title: "Dies at Bishopsbourne",
+    summary: "Joseph Conrad dies of a heart attack at Bishopsbourne, Kent. He is 66. Buried at Canterbury. His gravestone bears lines he chose himself from Edmund Spenser.",
+    detail: "The Spenser lines: 'Sleep after toil, port after stormy seas, / Ease after war, death after life, does greatly please.' He died a British subject who wrote in his third language about the darkness at the heart of European civilization — the darkness that was not alien or primitive or out there somewhere, but was in the company's reports, in the mission's charter, in the man who went upriver to bring light. He had kept the faith. He is not finished with us.",
+    cy: true
+  }
+];
+
+function buildTimeline() {
+  const container = document.getElementById('timeline-container');
+
+  EVENTS.forEach((ev, i) => {
+    const dotColor = ev.cy ? '#22d3ee' : '#10b981';
+    const labelColor = ev.cy ? '#22d3ee' : '#10b981';
+    const borderHover = ev.cy ? 'rgba(34,211,238,0.3)' : 'rgba(16,185,129,0.3)';
+
+    const el = document.createElement('div');
+    el.className = 'relative fade-in';
+
+    /* Ping dot on the line */
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+      position:absolute;
+      left:-28px;
+      top:18px;
+      width:10px;
+      height:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    `;
+    dot.innerHTML = `
+      <span style="position:absolute;width:10px;height:10px;border-radius:50%;background:${dotColor};opacity:0.35;animation:ping 2.5s ease-in-out infinite ${i * 0.12}s;display:block;"></span>
+      <span style="position:relative;width:6px;height:6px;border-radius:50%;background:${dotColor};display:block;"></span>
+    `;
+
+    /* Card */
+    const card = document.createElement('div');
+    card.className = 'tl-card glass rounded-xl p-5 cursor-pointer';
+    card.style.cssText = `border:1px solid rgba(255,255,255,0.05);`;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-expanded', 'false');
+    card.setAttribute('tabindex', '0');
+
+    card.innerHTML = `
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;color:${labelColor};">${ev.year}${ev.tag ? ' · ' + ev.tag : ''}</span>
+      </div>
+      <div style="color:#e2e8f0;font-weight:600;font-size:0.9rem;margin-bottom:6px;">${ev.title}</div>
+      <div style="color:#94a3b8;font-size:0.78rem;line-height:1.7;">${ev.summary}</div>
+      <div class="tl-detail" style="color:#64748b;font-size:0.78rem;line-height:1.75;margin-top:10px;">${ev.detail}</div>
+      <div class="tl-hint" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(255,255,255,0.22);margin-top:8px;">+ expand</div>
+    `;
+
+    const toggle = () => {
+      const detail = card.querySelector('.tl-detail');
+      const hint   = card.querySelector('.tl-hint');
+      const open   = detail.classList.toggle('open');
+      hint.textContent = open ? '− collapse' : '+ expand';
+      card.style.borderColor = open ? borderHover : 'rgba(255,255,255,0.05)';
+      card.setAttribute('aria-expanded', open);
+    };
+
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+
+    el.appendChild(dot);
+    el.appendChild(card);
+    container.appendChild(el);
+  });
+}
+
+/* ── Copy helpers ── */
+function flashBtn(btnId, labelId, iconId) {
+  const btn  = document.getElementById(btnId);
+  const lbl  = document.getElementById(labelId);
+  const icon = iconId ? document.getElementById(iconId) : null;
+  if (!btn) return;
+
+  btn.classList.add('success');
+  if (lbl) lbl.textContent = 'COPIED ✓';
+  if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>';
+
+  setTimeout(() => {
+    btn.classList.remove('success');
+    if (lbl) lbl.textContent = btnId === 'copyBriefBtn' ? 'COPY BRIEF' : 'COPY FORMAL';
+    if (icon) icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+  }, 2500);
+}
+
+
+function copyAlt(type) {
+  const briefText  = `T.T. — Conrad's Heart of Darkness is free: gutenberg.org/files/219/219-h/219-h.htm — and Bronowski's Auschwitz moment (YouTube: ITUj5zYcN1U) is the 3 minutes that explains why Ethraeon exists. "We have to touch people." — jason`;
+  const formalText = `Dear T.T., I wanted to share three resources that speak to story, accountability, and technology: Conrad's Heart of Darkness (Gutenberg), Bronowski's Ascent of Man finale, and Ethraeon's constitutional AI overview. The throughline is Bronowski's thesis: proximity creates moral responsibility. Best, Jason`;
+  const text = type === 'brief' ? briefText : formalText;
+  const btnId   = type === 'brief' ? 'copyBriefBtn'   : 'copyFormalBtn';
+  const labelId = type === 'brief' ? 'copyBriefLabel' : 'copyFormalLabel';
+  navigator.clipboard.writeText(text)
+    .then(() => flashBtn(btnId, labelId, null))
+    .catch(() => {});
+}
+
+/* ── Mobile nav ── */
+function toggleMobileMenu() {
+  const open = document.getElementById('mobile-menu').classList.toggle('open');
+  const icon = document.getElementById('menu-icon');
+  icon.innerHTML = open
+    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
+    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('menu-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+}
+
+/* ── Fade-in observer ── */
+function initFadeIn() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 6) * 0.06}s`;
+    obs.observe(el);
+  });
+}
+
+/* ── Init ── */
+buildTimeline();
+// Run fade-in after timeline is built
+requestAnimationFrame(() => {
+  requestAnimationFrame(initFadeIn);
+});
+</script>
+</body>
+</html>
