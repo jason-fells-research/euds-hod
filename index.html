@@ -224,6 +224,49 @@
       outline: 2px solid rgba(34,211,238,0.6);
       outline-offset: 2px;
     }
+
+    /* ══ PRINT / SAVE-AS-PDF ══════════════════════════════════════
+       IntersectionObserver never fires in print context, so every
+       .fade-in element stays at opacity:0 — wiping 7 of 11 pages.
+       This block forces full visibility and cleans up for paper.
+    ══════════════════════════════════════════════════════════════ */
+    @media print {
+      .fade-in,
+      .fade-in.visible {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      nav {
+        position: relative !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+      }
+      #mobile-menu { display: none !important; }
+
+      #hero { min-height: auto !important; padding-top: 3rem !important; padding-bottom: 3rem !important; }
+      #hero .absolute.bottom-8 { display: none !important; }
+
+      .tl-detail {
+        max-height: none !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+      }
+      .tl-hint { display: none !important; }
+
+      .glass, .glass-light {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(15,23,42,0.95) !important;
+      }
+
+      .tl-card, .feat-card, .res-link, .glass { break-inside: avoid; page-break-inside: avoid; }
+    }
   </style>
 </head>
 <body class="min-h-screen antialiased">
@@ -239,6 +282,7 @@
     <!-- Desktop nav -->
     <div class="hidden md:flex items-center gap-7">
       <a href="#hero"     class="nav-link">Origin</a>
+      <a href="#message"  class="nav-link">Message</a>
       <a href="#timeline" class="nav-link">Timeline</a>
       <a href="#ethraeon" class="nav-link">Ethraeon</a>
       <a href="#extras"   class="nav-link">Extras</a>
@@ -254,6 +298,7 @@
   <div id="mobile-menu" class="md:hidden px-5 pb-3">
     <div class="flex flex-col gap-1 pt-2 border-t border-white/5">
       <a href="#hero"     class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Origin</a>
+      <a href="#message"  class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Message</a>
       <a href="#timeline" class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Timeline</a>
       <a href="#ethraeon" class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Ethraeon</a>
       <a href="#extras"   class="nav-link flex items-center min-h-[44px] px-1" onclick="closeMobileMenu()">Extras</a>
@@ -329,6 +374,68 @@
     <div style="width:1px;height:32px;background:linear-gradient(to bottom,#475569,transparent);animation:pulse 2s ease-in-out infinite;"></div>
   </div>
 </section>
+
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 — MESSAGE TEMPLATE
+═══════════════════════════════════════════ -->
+<section id="message" class="py-24 px-6" style="background:linear-gradient(180deg,#0f172a 0%,#0a1628 100%);">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12 fade-in">
+      <div class="font-mono text-cyan-500 text-xs tracking-widest mb-3">TRANSMISSION // READY TO SEND</div>
+      <h2 class="font-serif font-bold text-slate-100 mb-3" style="font-size:clamp(1.6rem,4vw,2.4rem);">Message Template</h2>
+      <p class="text-slate-500 text-sm">One click. Copy everything. Send as-is.</p>
+    </div>
+    <div class="fade-in rounded-2xl glow-cyan" style="border:1px solid rgba(34,211,238,0.18);background:rgba(8,15,30,0.7);">
+      <div class="flex items-center gap-2 px-5 py-3 border-b" style="border-color:rgba(255,255,255,0.06);">
+        <div style="width:11px;height:11px;border-radius:50%;background:#ef4444;opacity:0.7;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#f59e0b;opacity:0.7;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#22c55e;opacity:0.7;"></div>
+        <span class="font-mono text-slate-600 ml-3" style="font-size:0.72rem;">message.txt — EUDS outreach template</span>
+      </div>
+      <div class="p-6">
+        <textarea id="msgTextarea" class="msg-area" rows="10" readonly spellcheck="false" aria-label="Message template"
+        >Hey T.T.,
+Heart of Darkness full free read: https://www.gutenberg.org/files/219/219-h/219-h.htm
+Apocalypse Now doc (ad-free): https://archive.org/details/apocalypse-now-wtaf-tv-29-woc-1987-11
+Bronowski at Auschwitz (Ascent of Man S1E11): https://www.youtube.com/watch?v=ITUj5zYcN1U
+Polish: "We have to touch people." – Bronowski, 1974.
+Native American truth: "The truth about stories is that that's all we are." – Thomas King.
+Ethraeon: Sovereign constitutional AI. 12 clauses, runtime ethics enforcement, SHA256→IPFS, 73+ patents, 16+ utility filed. Zero AI autonomy. ethraeon.ai
+Now. just say the word. i'm here to catch your fall. – jason (ac-1) "orbit" 🔐✅🔄⚛️☝️👉</textarea>
+      </div>
+      <div class="flex items-center justify-between px-5 py-3 border-t" style="border-color:rgba(255,255,255,0.06);">
+        <span class="font-mono text-slate-700 text-xs">8 lines · 3 URLs · ready to transmit</span>
+        <button id="copyMainBtn" class="btn-copy" onclick="copyMain()" aria-label="Copy message to clipboard">
+          <svg id="copyMainIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="copyMainLabel">COPY</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+      <div class="glass rounded-xl p-4 fade-in">
+        <div class="font-mono text-cyan-400 text-xs mb-2">BRONOWSKI →</div>
+        <p class="text-slate-400 text-xs leading-relaxed">Jacob Bronowski kneels at the Auschwitz ash pond and weeps. "We have to touch people." The most morally essential 3 minutes in television history. 1974.</p>
+      </div>
+      <div class="glass rounded-xl p-4 fade-in">
+        <div class="font-mono text-emerald-400 text-xs mb-2">THOMAS KING →</div>
+        <p class="text-slate-400 text-xs leading-relaxed">Cherokee-Greek author. <em>The Truth About Stories</em> (CBC Massey Lectures, 2003). Stories aren't decoration — they are the architecture of who we are.</p>
+      </div>
+      <div class="glass rounded-xl p-4 fade-in">
+        <div class="font-mono text-cyan-400 text-xs mb-2">ETHRAEON →</div>
+        <p class="text-slate-400 text-xs leading-relaxed">The constitutional AI architecture Conrad would have demanded of Kurtz's company. Runtime ethics. No autonomy without authorization. Human sovereignty, always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     DIVIDER
+═══════════════════════════════════════════ -->
+<div class="py-8 px-6"><div class="divider max-w-lg mx-auto"></div></div>
 
 
 <!-- ═══════════════════════════════════════════
@@ -988,6 +1095,17 @@ buildTimeline();
 requestAnimationFrame(() => {
   requestAnimationFrame(initFadeIn);
 });
+
+/* ── Print safety net ──
+   CSS @media print handles opacity, but beforeprint lets us also
+   add the .visible class so any JS-keyed logic sees correct state. */
+function revealAllForPrint() {
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.transitionDelay = '0s';
+    el.classList.add('visible');
+  });
+}
+window.addEventListener('beforeprint', revealAllForPrint);
 </script>
 </body>
 </html>
